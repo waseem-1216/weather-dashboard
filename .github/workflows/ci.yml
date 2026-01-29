@@ -1,0 +1,25 @@
+name: Python CI
+
+on: [push] # Run this every time we push code
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Use a Linux machine in the cloud
+
+    steps:
+    - uses: actions/checkout@v3 # Download our code
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flask
+
+    - name: Check if app runs
+      run: |
+        # This just checks if the file has syntax errors
+        python -m py_compile app.py
